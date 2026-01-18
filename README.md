@@ -114,8 +114,8 @@ python app.py
 
 ## 👤 Author
 
-**Tunde Olatunji**  
-*Registered Nurse | AI Researcher | Citizen Developer*
+**Lincoln Gombedza**  
+*Registered Learning Disability Nurse | Practice Educator | AI Researcher | Nurse Citizen Developer*
 
 - 🐙 GitHub: [@NurseCitizenDeveloper](https://github.com/NurseCitizenDeveloper)
 - 🤗 Hugging Face: [NurseCitizenDeveloper](https://huggingface.co/NurseCitizenDeveloper)
