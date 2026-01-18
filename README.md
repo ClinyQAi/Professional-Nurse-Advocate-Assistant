@@ -175,6 +175,9 @@ If you use this tool or model in your research, please cite:
 }
 ```
 
+## 📜 System Card & Methodology
+For a detailed technical breakdown of the system architecture, RAG implementation, and ethical considerations, please see the [**System Card**](SYSTEM_CARD.md).
+
 ---
 
 ## 👤 Author
