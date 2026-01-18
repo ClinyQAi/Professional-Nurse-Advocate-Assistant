@@ -223,8 +223,7 @@ with gr.Blocks(css=CUSTOM_CSS, title="PNA Assistant", theme=gr.themes.Soft()) as
                 "How can I support a colleague through restorative supervision?",
                 "What does a Professional Nurse Advocate do?"
             ],
-            inputs=msg,
-            elem_classes="examples-container"
+            inputs=msg
         )
     
     # Disclaimer
