@@ -1,0 +1,13 @@
+gradio
+transformers
+torch
+sentence-transformers
+faiss-cpu
+spaces
+gTTS
+librosa
+accelerate
+bitsandbytes
+sentencepiece
+protobuf
+marko
