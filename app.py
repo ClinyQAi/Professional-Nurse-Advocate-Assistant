@@ -60,7 +60,7 @@ with gr.Blocks(css=CUSTOM_CSS, title="PNA Assistant") as demo:
     
     gr.ChatInterface(
         fn=chat_response,
-        type="tuples",
+        type="messages",
         examples=[
             "What is the A-EQUIP model?",
             "Explain the four functions of clinical supervision",
