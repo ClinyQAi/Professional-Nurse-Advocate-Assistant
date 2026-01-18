@@ -17,8 +17,9 @@ An AI-powered tutor designed to guide nursing professionals through the **A-EQUI
 Automatically synced from GitHub via GitHub Actions.
 
 ## 🧠 Model Strategy
-- **Base Voice**: `NurseCitizenDeveloper/nursing-llama-3-8b-fons`
+- **Base Model**: `NurseCitizenDeveloper/relational-intelligence-unsloth-medgemma` (person-centred, fine-tuned)
 - **Knowledge Base**: RAG implementation using the official PNA A-EQUIP guide.
+- **Persona**: Strong PNA Tutor system prompting for restorative supervision focus.
 
 ## ⚖️ Disclaimer
 This tool is for educational and supportive purposes for Professional Nurse Advocates and nursing staff. It does not provide direct clinical advice.
