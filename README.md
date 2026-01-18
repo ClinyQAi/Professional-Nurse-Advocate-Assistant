@@ -23,8 +23,8 @@ pinned: false
   <a href="https://huggingface.co/spaces/NurseCitizenDeveloper/PNA-Assistant">
     <img src="https://img.shields.io/badge/🤗%20Live%20Demo-Hugging%20Face-yellow" alt="Hugging Face Space">
   </a>
-  <a href="https://huggingface.co/NurseCitizenDeveloper/relational-intelligence-medgemma-merged">
-    <img src="https://img.shields.io/badge/Model-MedGemma%20Fine--tuned-blue" alt="Model">
+  <a href="https://huggingface.co/google/gemma-2-2b-it">
+    <img src="https://img.shields.io/badge/Model-Gemma%202%202B%20IT-blue" alt="Model">
   </a>
   <img src="https://img.shields.io/badge/License-Apache%202.0-green" alt="License">
   <img src="https://img.shields.io/badge/Python-3.10+-blue" alt="Python">
@@ -87,8 +87,8 @@ The A-EQUIP model provides a framework for Professional Nurse Advocates with fou
 
 ## 🧠 Technology Stack
 
-- **Base Model**: [google/medgemma-4b-it](https://huggingface.co/google/medgemma-4b-it)
-- **Fine-Tuned Model**: [relational-intelligence-medgemma-merged](https://huggingface.co/NurseCitizenDeveloper/relational-intelligence-medgemma-merged)
+- **Base Model**: [google/gemma-2-2b-it](https://huggingface.co/google/gemma-2-2b-it)
+- **Architecture**: RAG (Context-Aware) + Instruction Tuned LLM
 - **Framework**: Gradio + Hugging Face Spaces (ZeroGPU)
 - **Knowledge Base**: RAG with Sentence Transformers + FAISS
 

@@ -5,7 +5,7 @@ import spaces
 
 class PNAAssistantClient:
     # Using user's merged MedGemma model - trained on person-centred language
-    def __init__(self, model_id="NurseCitizenDeveloper/relational-intelligence-medgemma-merged"):
+    def __init__(self, model_id="google/gemma-2-2b-it"):
         self.model_id = model_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.tokenizer = None
