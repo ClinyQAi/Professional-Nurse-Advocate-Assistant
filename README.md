@@ -130,7 +130,6 @@ This project builds upon the work of many individuals and organisations:
 - **[Foundation of Nursing Studies (FONS)](https://www.fons.org/)** - For person-centred nursing principles
 - **[NHS England](https://www.england.nhs.uk/)** - For the A-EQUIP Model and PNA Framework
 - **[Google Health AI](https://health.google/)** - For MedGemma foundation model
-- **[AI Educator Toolkit](https://github.com/NurseCitizenDeveloper/AI-Educator-Toolkit)** - Author's educational AI resources
 - **[Hugging Face](https://huggingface.co/)** - For hosting and ZeroGPU infrastructure
 - **[Unsloth](https://github.com/unslothai/unsloth)** - For efficient fine-tuning tools
 
