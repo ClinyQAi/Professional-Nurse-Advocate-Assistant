@@ -4,26 +4,25 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import spaces
 
 class PNAAssistantClient:
-    # Using user's fine-tuned MedGemma model trained on person-centred language
-    def __init__(self, model_id="NurseCitizenDeveloper/relational-intelligence-unsloth-medgemma"):
+    # Using google/gemma-2-2b-it - a fast, reliable model that works on ZeroGPU
+    # Person-centred voice is achieved through strong PNA system prompting
+    def __init__(self, model_id="google/gemma-2-2b-it"):
         self.model_id = model_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.tokenizer = None
         self.model = None
         
-        # Diversity Emojis from instructions
+        # Diversity Emojis from PNA instructions
         self.diversity_emojis = ["👨🏾‍⚕️", "👩🏽‍⚕️", "👨🏿‍⚕️", "👩🏻‍⚕️", "👩‍⚕️"]
 
     def _load_model(self):
         if self.model is None:
             print(f"Loading model {self.model_id}...")
-            # Use token=True to leverage HF_TOKEN for gated models
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, token=True)
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_id)
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.model_id,
                 torch_dtype=torch.bfloat16 if self.device == "cuda" else torch.float32,
-                device_map="auto" if self.device == "cuda" else None,
-                token=True
+                device_map="auto" if self.device == "cuda" else None
             )
             print("Model loaded successfully!")
 
