@@ -68,7 +68,7 @@ This tool focuses on:
 | Feature | Description |
 |---------|-------------|
 | **RAG-Powered Knowledge** | Retrieval-Augmented Generation using the official A-EQUIP Model Guide |
-| **Fine-Tuned Model** | Built on MedGemma, fine-tuned with person-centred nursing language (FONS principles) |
+| **Foundation Model** | Powered by Gemma 2 2B IT, instruction-tuned for clear, safe, and helpful dialogue |
 | **Premium UI** | Modern, accessible interface with NHS-inspired design |
 | **Diversity-First** | Inclusive design with diverse healthcare worker representation |
 
