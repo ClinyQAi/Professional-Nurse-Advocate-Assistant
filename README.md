@@ -21,6 +21,9 @@ pinned: false
 
 <p align="center">
   <a href="https://huggingface.co/spaces/NurseCitizenDeveloper/PNA-Assistant">
+    <img src="https://img.shields.io/badge/Status-Research_Use_Only-orange?style=for-the-badge" alt="Research Use Only">
+  </a>
+  <a href="https://huggingface.co/spaces/NurseCitizenDeveloper/PNA-Assistant">
     <img src="https://img.shields.io/badge/🤗%20Live%20Demo-Hugging%20Face-yellow" alt="Hugging Face Space">
   </a>
   <a href="https://huggingface.co/google/gemma-2-2b-it">
@@ -110,7 +113,7 @@ The A-EQUIP model provides a framework for Professional Nurse Advocates with fou
 ## 🗺️ Roadmap
 
 - [x] **Phase 1**: Initial Deployment with RAG & Fine-tuned Model
-- [ ] **Phase 2**: Multi-language Support (Spanish, Tagalog, Malayalam)
+- [ ] **Phase 2**: TranslateGemma Live (Real-Time WebRTC Audio/Video Translation)
 - [ ] **Phase 3**: Voice Integration for Spoken Restorative Supervision
 - [ ] **Phase 4**: Integration with NHS e-Learning Platforms
 
@@ -162,12 +165,13 @@ Contributions are always welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) 
 If you use this tool or model in your research, please cite:
 
 ```bibtex
-@software{pna_assistant_2024,
+@software{gombedza_pna_assistant_2024,
   author = {Gombedza, Lincoln},
-  title = {Professional Nurse Advocate Assistant: AI-Powered A-EQUIP Support},
+  title = {The Professional Nurse Advocate AI: A specialized language model for supporting nursing workforce resilience research},
   year = {2024},
   publisher = {Hugging Face},
-  url = {https://huggingface.co/spaces/NurseCitizenDeveloper/PNA-Assistant}
+  url = {https://huggingface.co/spaces/NurseCitizenDeveloper/PNA-Assistant},
+  version = {1.0.0}
 }
 ```
 
