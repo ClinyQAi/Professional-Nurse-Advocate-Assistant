@@ -7,7 +7,6 @@ spaces
 gTTS
 librosa
 accelerate
-bitsandbytes
 sentencepiece
 protobuf
 marko
