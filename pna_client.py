@@ -1,19 +1,33 @@
-# No GPU needed - Uses Hugging Face Inference API
-from huggingface_hub import InferenceClient
+import os
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import spaces
 
 class PNAAssistantClient:
-    """PNA Assistant Client - uses Hugging Face Inference API (no GPU needed)."""
-    
-    def __init__(self, model_id="HuggingFaceH4/zephyr-7b-beta"):
+    # Using user's merged MedGemma model - trained on person-centred language
+    def __init__(self, model_id="google/gemma-2-2b-it"):
         self.model_id = model_id
-        self.client = InferenceClient()
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.tokenizer = None
+        self.model = None
         
-        # Diversity Emojis
+        # Diversity Emojis from PNA instructions
         self.diversity_emojis = ["👨🏾‍⚕️", "👩🏽‍⚕️", "👨🏿‍⚕️", "👩🏻‍⚕️", "👩‍⚕️"]
-        print(f"PNA Assistant initialized (Inference API: {model_id})")
 
+    def _load_model(self):
+        if self.model is None:
+            print(f"Loading model {self.model_id}...")
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_id)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.model_id,
+                torch_dtype=torch.bfloat16 if self.device == "cuda" else torch.float32,
+                device_map="auto" if self.device == "cuda" else None
+            )
+            print("Model loaded successfully!")
+
+    @spaces.GPU()
     def generate_response(self, prompt, context="", history=[]):
-        """Generate response using Hugging Face Inference API."""
+        self._load_model()
         
         system_prompt = f"""You are a Professional Nurse Advocate (PNA) AI tutor. Your role is to guide nursing professionals through the A-EQUIP model (Advocating and Educating for Quality Improvement).
 
@@ -39,20 +53,21 @@ class PNAAssistantClient:
 """
 
         messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": f"{system_prompt}\n\nUser question: {prompt}"}
         ]
         
-        try:
-            response = self.client.chat_completion(
-                model=self.model_id,
-                messages=messages,
-                max_tokens=300,
-                temperature=0.7,
+        inputs = self.tokenizer.apply_chat_template(messages, return_tensors="pt", add_generation_prompt=True).to(self.device)
+        attention_mask = torch.ones_like(inputs).to(self.device)
+        
+        with torch.no_grad():
+            outputs = self.model.generate(
+                inputs, 
+                attention_mask=attention_mask,
+                max_new_tokens=300, 
+                temperature=0.7, 
+                do_sample=True,
+                pad_token_id=self.tokenizer.eos_token_id
             )
-            return response.choices[0].message.content
             
-        except Exception as e:
-            print(f"Inference API error: {e}")
-            # Fallback response
-            return f"👩🏽‍⚕️ I apologize, but I'm experiencing technical difficulties connecting to the AI service. Please try again in a moment.\n\nError details: {str(e)[:200]}"
+        response = self.tokenizer.decode(outputs[0][inputs.shape[-1]:], skip_special_tokens=True)
+        return response.strip()
