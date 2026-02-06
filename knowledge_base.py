@@ -7,15 +7,24 @@ import marko
 class PNAKnowledgeBase:
     def __init__(self, guide_path):
         self.guide_path = guide_path
-        # Force CPU for embeddings to avoid ZeroGPU device mismatch
-        self.encoder = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+        self.encoder = None # Lazy load
         self.chunks = []
         self.index = None
         
         if os.path.exists(guide_path):
-            self._process_guide()
+            # Deferred to first search
+            pass
         else:
             print(f"Warning: Guide not found at {guide_path}")
+
+    def _ensure_initialized(self):
+        if self.encoder is None:
+            print("Initializing Knowledge Base (Lazy Load)...")
+            # Force CPU
+            self.encoder = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+            
+        if self.index is None and os.path.exists(self.guide_path):
+             self._process_guide()
 
     def _process_guide(self):
         with open(self.guide_path, 'r', encoding='utf-8') as f:
@@ -34,6 +43,8 @@ class PNAKnowledgeBase:
         print(f"Knowledge Base initialized with {len(self.chunks)} chunks.")
 
     def search(self, query, top_k=3):
+        self._ensure_initialized()
+        
         if not self.index:
             return ""
         
