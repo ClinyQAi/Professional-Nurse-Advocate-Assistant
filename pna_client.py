@@ -4,7 +4,7 @@ from huggingface_hub import InferenceClient
 class PNAAssistantClient:
     """PNA Assistant using Hugging Face Inference API (no local GPU required)."""
     
-    def __init__(self, model_id="google/gemma-2-2b-it"):
+    def __init__(self, model_id="mistralai/Mistral-7B-Instruct-v0.2"):
         self.model_id = model_id
         # Use Hugging Face Inference API - no GPU needed locally
         self.client = InferenceClient()
