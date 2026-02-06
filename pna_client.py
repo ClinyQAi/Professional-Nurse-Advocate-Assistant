@@ -1,7 +1,7 @@
+import spaces  # MUST be first before torch
 import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-import spaces
 
 class PNAAssistantClient:
     # Using user's merged MedGemma model - trained on person-centred language
