@@ -8,7 +8,7 @@ class PNAAssistantClient:
     # Using user's merged MedGemma model - trained on person-centred language
     def __init__(self, model_id="google/gemma-2-2b-it"):
         self.model_id = model_id
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        # Don't set device in __init__ as it might be CPU on startup
         self.tokenizer = None
         self.model = None
         
@@ -18,12 +18,17 @@ class PNAAssistantClient:
     def _load_model(self):
         if self.model is None:
             print(f"Loading model {self.model_id}...")
+            # Inside @spaces.GPU, torch.cuda.is_available() should be True
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            print(f"Using device: {device}")
+            
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id)
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.model_id,
-                torch_dtype=torch.bfloat16 if self.device == "cuda" else torch.float32,
-                device_map="auto" if self.device == "cuda" else None
+                torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32,
+                device_map="auto" if device == "cuda" else None
             )
+            self.device = device
             print("Model loaded successfully!")
 
     @spaces.GPU()
