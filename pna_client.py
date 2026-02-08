@@ -25,9 +25,9 @@ class PNAAssistantClient:
         print(f"PNA Assistant initialized (Inference API mode: {model_id})")
 
     def generate_response(self, prompt, context="", history=[]):
-        """Generate response using HF Inference API."""
+        """Generate response using HF Inference API chat_completion method."""
         
-        system_prompt = f"""You are a Professional Nurse Advocate (PNA) AI tutor. Your role is to guide nursing professionals through the A-EQUIP model (Advocating and Educating for Quality Improvement).
+        system_content = f"""You are a Professional Nurse Advocate (PNA) AI tutor. Your role is to guide nursing professionals through the A-EQUIP model (Advocating and Educating for Quality Improvement).
 
 **Your Core Functions (A-EQUIP):**
 1. Normative: Monitoring, evaluation, quality control
@@ -50,8 +50,10 @@ class PNAAssistantClient:
 {context}
 """
         
-        # Build the full prompt for Gemma chat format
-        full_prompt = f"<start_of_turn>user\n{system_prompt}\n\nUser question: {prompt}<end_of_turn>\n<start_of_turn>model\n"
+        # Build messages for chat_completion (proper chat API format)
+        messages = [
+            {"role": "user", "content": f"{system_content}\n\nUser question: {prompt}"}
+        ]
         
         try:
             # DEBUG: Print token status (don't print the actual token)
@@ -59,19 +61,21 @@ class PNAAssistantClient:
             print(f"DEBUG: HF_TOKEN is {'Set' if token else 'NOT SET'}")
             if token:
                 print(f"DEBUG: Token length: {len(token)}")
-                print(f"DEBUG: Token starts with: {token[:4]}...")
             
-            response = self.client.text_generation(
-                full_prompt,
-                max_new_tokens=300,
-                temperature=0.7,
-                do_sample=True,
-                stop=["<end_of_turn>"],
-                stream=False
+            # Use chat_completion for chat models like Gemma 2
+            response = self.client.chat_completion(
+                messages=messages,
+                max_tokens=300,
+                temperature=0.7
             )
+            
             print(f"DEBUG: Response type: {type(response)}")
-            print(f"DEBUG: Response content: {repr(response)[:100]}...")
-            return response.strip()
+            
+            # Extract the message content from the response
+            answer = response.choices[0].message.content
+            print(f"DEBUG: Answer: {answer[:100]}...")
+            return answer.strip()
+            
         except Exception as e:
             print(f"DEBUG: Exception Type: {type(e)}")
             print(f"DEBUG: Exception Args: {e.args}")
