@@ -54,6 +54,13 @@ class PNAAssistantClient:
         full_prompt = f"<start_of_turn>user\n{system_prompt}\n\nUser question: {prompt}<end_of_turn>\n<start_of_turn>model\n"
         
         try:
+            # DEBUG: Print token status (don't print the actual token)
+            token = os.getenv("HF_TOKEN")
+            print(f"DEBUG: HF_TOKEN is {'Set' if token else 'NOT SET'}")
+            if token:
+                print(f"DEBUG: Token length: {len(token)}")
+                print(f"DEBUG: Token starts with: {token[:4]}...")
+            
             response = self.client.text_generation(
                 full_prompt,
                 max_new_tokens=300,
@@ -63,5 +70,7 @@ class PNAAssistantClient:
             )
             return response.strip()
         except Exception as e:
-            print(f"Inference API error details: {str(e)}")
-            return f"I apologize, but I'm experiencing technical difficulties. Please try again in a moment. 👩🏽‍⚕️"
+            print(f"DEBUG: Exception Type: {type(e)}")
+            print(f"DEBUG: Exception Args: {e.args}")
+            print(f"DEBUG: Full Exception: {repr(e)}")
+            return f"I apologize, but I'm experiencing technical difficulties. Please try again in a moment. (Error: {str(e)})"
