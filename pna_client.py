@@ -66,8 +66,11 @@ class PNAAssistantClient:
                 max_new_tokens=300,
                 temperature=0.7,
                 do_sample=True,
-                stop=["<end_of_turn>"]
+                stop=["<end_of_turn>"],
+                stream=False
             )
+            print(f"DEBUG: Response type: {type(response)}")
+            print(f"DEBUG: Response content: {repr(response)[:100]}...")
             return response.strip()
         except Exception as e:
             print(f"DEBUG: Exception Type: {type(e)}")
