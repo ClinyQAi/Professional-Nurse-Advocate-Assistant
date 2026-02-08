@@ -59,9 +59,9 @@ class PNAAssistantClient:
                 max_new_tokens=300,
                 temperature=0.7,
                 do_sample=True,
-                stop_sequences=["<end_of_turn>"]
+                stop=["<end_of_turn>"]
             )
             return response.strip()
         except Exception as e:
-            print(f"Inference API error: {e}")
+            print(f"Inference API error details: {str(e)}")
             return f"I apologize, but I'm experiencing technical difficulties. Please try again in a moment. 👩🏽‍⚕️"
